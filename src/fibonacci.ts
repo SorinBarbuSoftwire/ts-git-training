@@ -1,24 +1,30 @@
-export const computeFibonacciNumber = (position: number, recursion: boolean = false): number => {
-    if (position === 0) {
+export const computeFibonacciNumber = (position: number | null, recursion: boolean = false): number => {
+    let notNullPosition = position;
+    if (notNullPosition === null) {
+        notNullPosition = 1;   
+    }
+
+    if (notNullPosition < 0) {
+        return computeNegativeFibonacci(notNullPosition);
+    }
+
+    if (notNullPosition === 0) {
         return 0;
     }
-    if (position < 0) {
-        return computeNegativeFibonacci(position);
-    }
     
-    if (position <= 2) {
+    if (notNullPosition <= 2) {
         return 1;
     }
 
     if (recursion) {
-        return recursiveFibonacci(1, 1, position - 2);
+        return recursiveFibonacci(1, 1, notNullPosition - 2);
     }
 
     let i = 1;
     let j = 1;
 
     let currentPosition = 2;
-    while (currentPosition < position) {
+    while (currentPosition < notNullPosition) {
         const temp = i;
         i = j;
         j += temp;
